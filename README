@@ -1,0 +1,8 @@
+Projeto de Automação de backend com Robot Framework
+Projeto base de automação de backend com robotframework
+Pré-requisitos do projeto
+Nodes.js 14.x.x ou superior
+Python 3.7.x ou superior
+Instalar dependencias do projeto
+python -m pip install --upgrade pip
+pip install robotframework-requests

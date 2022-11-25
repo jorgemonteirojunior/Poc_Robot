@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+    commands:
+      - cd poc
+      - pip install -r dependency.txt
+  build:
+    commands:
+      - robot -x robot.xml ./poc/spec

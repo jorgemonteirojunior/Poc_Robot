@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.8 on win32)" generated="20221125 10:49:22.820" rpa="false" schemaversion="3">
+<suite id="s1" name="Poc" source="C:\Users\Fcamara.jorge\OneDrive - AO3\Documentos\IOB_API_TEST\poc\spec\poc.robot">
+<test id="s1-t1" name="CT01 - Cadastro" line="14">
+<kw name="Dado que envio uma requisição POST para realizar um cadastro" library="poc">
+<arg>cadastro.json</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headersAPI}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20221125 10:49:23.048" level="INFO">${headersAPI} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20221125 10:49:23.047" endtime="20221125 10:49:23.048"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>create_user</arg>
+<arg>${URL_API}</arg>
+<arg>${headersAPI}</arg>
+<arg>disable_warnings=1</arg>
+<arg>verify=${false}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20221125 10:49:23.048" level="INFO">Creating Session using : alias=create_user, url=https://reqres.in/api/users, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20221125 10:49:23.048" endtime="20221125 10:49:23.049"/>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<var>${request_body}</var>
+<arg>${EXECDIR}\\Massas\\${arqJson}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<msg timestamp="20221125 10:49:23.049" level="INFO" html="true">Getting file '&lt;a href="file://C:\Users\Fcamara.jorge\OneDrive - AO3\Documentos\IOB_API_TEST\poc\Massas\cadastro.json"&gt;C:\Users\Fcamara.jorge\OneDrive - AO3\Documentos\IOB_API_TEST\poc\Massas\cadastro.json&lt;/a&gt;'.</msg>
+<msg timestamp="20221125 10:49:23.050" level="INFO">${request_body} = {
+    "name": "Jorge",
+    "job": "leader"
+}</msg>
+<status status="PASS" starttime="20221125 10:49:23.049" endtime="20221125 10:49:23.050"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${request_body}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20221125 10:49:23.051" level="INFO">{
+    "name": "Jorge",
+    "job": "leader"
+}</msg>
+<status status="PASS" starttime="20221125 10:49:23.051" endtime="20221125 10:49:23.051"/>
+</kw>
+<kw name="POST On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>create_user</arg>
+<arg>url=${URL_API}</arg>
+<arg>data=${request_body}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20221125 10:49:23.775" level="INFO">POST Request : url=https://reqres.in/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '44'} 
+ body={
+    "name": "Jorge",
+    "job": "leader"
+} 
+ </msg>
+<msg timestamp="20221125 10:49:23.775" level="INFO">POST Response : url=https://reqres.in/api/users 
+ status=201, reason=Created 
+ headers={'Date': 'Fri, 25 Nov 2022 13:49:27 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '81', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"51-W65/djWWuw7NmEVPMFwrLS/VXzU"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=n4TxuSLh10Coq0aMyJ44OG0uK%2BknC4pnBj6v2In%2BqzqFY7ZTMCtRJ4BrUTV6Eu31qubR1ZzP1Hxf%2B2PnRA2%2F4c9WYw13EfthQdckCkyDjyW2ydduTgvhDA58GRD7BcoBVKpTu56bHQ%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '76fad904edcb9ac0-MIA'} 
+ body={"name":"Jorge","job":"leader","id":"587","createdAt":"2022-11-25T13:49:27.365Z"} 
+ </msg>
+<msg timestamp="20221125 10:49:23.776" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221125 10:49:23.051" endtime="20221125 10:49:23.776"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${resposta}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20221125 10:49:23.776" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20221125 10:49:23.776" endtime="20221125 10:49:23.776"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${resposta.text}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20221125 10:49:23.777" level="INFO">{"name":"Jorge","job":"leader","id":"587","createdAt":"2022-11-25T13:49:27.365Z"}</msg>
+<status status="PASS" starttime="20221125 10:49:23.776" endtime="20221125 10:49:23.777"/>
+</kw>
+<status status="PASS" starttime="20221125 10:49:23.047" endtime="20221125 10:49:23.777"/>
+</kw>
+<kw name="E confiro o status code" library="poc">
+<arg>201</arg>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${RESPOSTA.status_code}</arg>
+<arg>${STATUSCODE_DESEJADO}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20221125 10:49:23.778" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20221125 10:49:23.778" endtime="20221125 10:49:23.778"/>
+</kw>
+<status status="PASS" starttime="20221125 10:49:23.777" endtime="20221125 10:49:23.778"/>
+</kw>
+<tag>cadastro</tag>
+<status status="PASS" starttime="20221125 10:49:23.047" endtime="20221125 10:49:23.779"/>
+</test>
+<test id="s1-t2" name="CT02 - Editar_cadastro" line="19">
+<kw name="Dado que envio uma requisição PUT para editar um cadastro" library="poc">
+<arg>editar.json</arg>
+<kw name="Get File" library="OperatingSystem">
+<var>${request_body}</var>
+<arg>${EXECDIR}\\Massas\\${arqJson}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<msg timestamp="20221125 10:49:23.781" level="INFO" html="true">Getting file '&lt;a href="file://C:\Users\Fcamara.jorge\OneDrive - AO3\Documentos\IOB_API_TEST\poc\Massas\editar.json"&gt;C:\Users\Fcamara.jorge\OneDrive - AO3\Documentos\IOB_API_TEST\poc\Massas\editar.json&lt;/a&gt;'.</msg>
+<msg timestamp="20221125 10:49:23.782" level="INFO">${request_body} = {
+    "name": "Jorge",
+    "job": "teste"
+}</msg>
+<status status="PASS" starttime="20221125 10:49:23.780" endtime="20221125 10:49:23.782"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headersAPI}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20221125 10:49:23.783" level="INFO">${headersAPI} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20221125 10:49:23.782" endtime="20221125 10:49:23.783"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>editar</arg>
+<arg>${URL_API}</arg>
+<arg>${headersAPI}</arg>
+<arg>disable_warnings=1</arg>
+<arg>verify=${false}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20221125 10:49:23.783" level="INFO">Creating Session using : alias=editar, url=https://reqres.in/api/users, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20221125 10:49:23.783" endtime="20221125 10:49:23.783"/>
+</kw>
+<kw name="PUT On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>editar</arg>
+<arg>url=/2</arg>
+<arg>data=${request_body}</arg>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<msg timestamp="20221125 10:50:06.539" level="INFO">PUT Request : url=https://reqres.in/api/users/2 
+ path_url=/api/users/2 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '43'} 
+ body={
+    "name": "Jorge",
+    "job": "teste"
+} 
+ </msg>
+<msg timestamp="20221125 10:50:06.539" level="INFO">PUT Response : url=https://reqres.in/api/users/2 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 25 Nov 2022 13:50:10 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"45-l6SvaHjIq4YdnRxDFvkZVpnoUaE"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=nnq%2BhjpvoBB01J9xs1RIxP37UPxQbfBOOBBCOZpsFgUxzPJ11OZl2jCEovbENwa8tXmAnHOyEpnGpLQFR4y6o71TSrnpUCof%2BevnSdi3oa4CGZKXBf7jzgJuFigiTwawAKDZ%2Fre4vw%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '76fada102a290345-MIA', 'Content-Encoding': 'gzip'} 
+ body={"name":"Jorge","job":"teste","updatedAt":"2022-11-25T13:50:10.131Z"} 
+ </msg>
+<msg timestamp="20221125 10:50:06.539" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20221125 10:49:23.783" endtime="20221125 10:50:06.539"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${resposta}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20221125 10:50:06.540" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20221125 10:50:06.540" endtime="20221125 10:50:06.540"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${resposta.text}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20221125 10:50:06.541" level="INFO">{"name":"Jorge","job":"teste","updatedAt":"2022-11-25T13:50:10.131Z"}</msg>
+<status status="PASS" starttime="20221125 10:50:06.540" endtime="20221125 10:50:06.541"/>
+</kw>
+<status status="PASS" starttime="20221125 10:49:23.780" endtime="20221125 10:50:06.541"/>
+</kw>
+<kw name="E confiro o status code" library="poc">
+<arg>200</arg>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${RESPOSTA.status_code}</arg>
+<arg>${STATUSCODE_DESEJADO}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20221125 10:50:06.543" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20221125 10:50:06.542" endtime="20221125 10:50:06.543"/>
+</kw>
+<status status="PASS" starttime="20221125 10:50:06.542" endtime="20221125 10:50:06.543"/>
+</kw>
+<tag>editar_cadastro</tag>
+<status status="PASS" starttime="20221125 10:49:23.780" endtime="20221125 10:50:06.543"/>
+</test>
+<test id="s1-t3" name="CT03 - consultar_cadastro" line="24">
+<kw name="Dado que envio uma requisição GET para consultar um cadastro" library="poc">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headersAPI}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20221125 10:50:06.546" level="INFO">${headersAPI} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20221125 10:50:06.546" endtime="20221125 10:50:06.546"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>consulta</arg>
+<arg>${URL_API}</arg>
+<arg>${headersAPI}</arg>
+<arg>disable_warnings=1</arg>
+<arg>verify=${false}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20221125 10:50:06.546" level="INFO">Creating Session using : alias=consulta, url=https://reqres.in/api/users, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20221125 10:50:06.546" endtime="20221125 10:50:06.547"/>
+</kw>
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>consulta</arg>
+<arg>url=?page=2</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20221125 10:50:07.008" level="INFO">GET Request : url=https://reqres.in/api/users/?page=2 
+ path_url=/api/users/?page=2 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20221125 10:50:07.008" level="INFO">GET Response : url=https://reqres.in/api/users/?page=2 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 25 Nov 2022 13:50:10 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"406-ut0vzoCuidvyMf8arZpMpJ6ZRDw"', 'Via': '1.1 vegur', 'Cache-Control': 'max-age=14400', 'CF-Cache-Status': 'HIT', 'Age': '1089', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=ugusEU8b%2BTxfyiwxrySaWoi6K5jDa5dYAGfJkFaJ7PbS8RGcmoQSsbJjxxCr6c6FL53H3Przt2orVc6lPj%2BVcuefX3YlGlXlUk1B8Qa3GzD2owrSs0AL7vA8Hfb7vu%2FNYhqOD58lSw%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'Server': 'cloudflare', 'CF-RAY': '76fada147986ef12-MIA', 'Content-Encoding': 'gzip'} 
+ body={"page":2,"per_page":6,"total":12,"total_pages":2,"data":[{"id":7,"email":"michael.lawson@reqres.in","first_name":"Michael","last_name":"Lawson","avatar":"https://reqres.in/img/faces/7-image.jpg"},{"id":8,"email":"lindsay.ferguson@reqres.in","first_name":"Lindsay","last_name":"Ferguson","avatar":"https://reqres.in/img/faces/8-image.jpg"},{"id":9,"email":"tobias.funke@reqres.in","first_name":"Tobias","last_name":"Funke","avatar":"https://reqres.in/img/faces/9-image.jpg"},{"id":10,"email":"byron.fields@reqres.in","first_name":"Byron","last_name":"Fields","avatar":"https://reqres.in/img/faces/10-image.jpg"},{"id":11,"email":"george.edwards@reqres.in","first_name":"George","last_name":"Edwards","avatar":"https://reqres.in/img/faces/11-image.jpg"},{"id":12,"email":"rachel.howell@reqres.in","first_name":"Rachel","last_name":"Howell","avatar":"https://reqres.in/img/faces/12-image.jpg"}],"support":{"url":"https://reqres.in/#support-heading","text":"To keep ReqRes free, contributions towards server costs are appreciated!"}} 
+ </msg>
+<msg timestamp="20221125 10:50:07.008" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20221125 10:50:06.547" endtime="20221125 10:50:07.008"/>
+</kw>
+<status status="PASS" starttime="20221125 10:50:06.545" endtime="20221125 10:50:07.009"/>
+</kw>
+<kw name="E confiro o status code" library="poc">
+<arg>201</arg>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${RESPOSTA.status_code}</arg>
+<arg>${STATUSCODE_DESEJADO}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20221125 10:50:07.011" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20221125 10:50:07.010" endtime="20221125 10:50:07.011"/>
+</kw>
+<status status="PASS" starttime="20221125 10:50:07.009" endtime="20221125 10:50:07.011"/>
+</kw>
+<tag>consultar_cadastro</tag>
+<status status="PASS" starttime="20221125 10:50:06.544" endtime="20221125 10:50:07.012"/>
+</test>
+<test id="s1-t4" name="CT04 - deletar_cadastro" line="29">
+<kw name="Dado que envio uma requisição DELETE para excluir um cadastro" library="poc">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headersAPI}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20221125 10:50:07.014" level="INFO">${headersAPI} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20221125 10:50:07.014" endtime="20221125 10:50:07.014"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>deletar</arg>
+<arg>${URL_API}</arg>
+<arg>${headersAPI}</arg>
+<arg>disable_warnings=1</arg>
+<arg>verify=${false}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20221125 10:50:07.015" level="INFO">Creating Session using : alias=deletar, url=https://reqres.in/api/users, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20221125 10:50:07.015" endtime="20221125 10:50:07.016"/>
+</kw>
+<kw name="DELETE On Session" library="RequestsLibrary">
+<var>${resposta}</var>
+<arg>deletar</arg>
+<arg>url=/2</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20221125 10:50:07.703" level="INFO">DELETE Request : url=https://reqres.in/api/users/2 
+ path_url=/api/users/2 
+ headers={'User-Agent': 'python-requests/2.28.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20221125 10:50:07.704" level="INFO">DELETE Response : url=https://reqres.in/api/users/2 
+ status=204, reason=No Content 
+ headers={'Date': 'Fri, 25 Nov 2022 13:50:11 GMT', 'Content-Length': '0', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Etag': 'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"', 'Via': '1.1 vegur', 'CF-Cache-Status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=Gcu7YHJaZWpOaqb%2B2oU0AO8ZwnJ24ncFKW58q9fcm2PGAKr9xJbvlATJVcGU7VAD34jlS1OVVPiNWo4Ud4R9BN7nUiTCDmm%2BOMKsPFA62egrEX7pv3mt0lvadujMyzrTQnXqe67Bzw%3D%3D"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '76fada176aa70325-MIA'} 
+ body=None 
+ </msg>
+<msg timestamp="20221125 10:50:07.704" level="INFO">${resposta} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20221125 10:50:07.016" endtime="20221125 10:50:07.704"/>
+</kw>
+<status status="PASS" starttime="20221125 10:50:07.014" endtime="20221125 10:50:07.704"/>
+</kw>
+<kw name="E confiro o status code" library="poc">
+<arg>201</arg>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${RESPOSTA.status_code}</arg>
+<arg>${STATUSCODE_DESEJADO}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20221125 10:50:07.705" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20221125 10:50:07.704" endtime="20221125 10:50:07.706"/>
+</kw>
+<status status="PASS" starttime="20221125 10:50:07.704" endtime="20221125 10:50:07.707"/>
+</kw>
+<tag>deletar_cadastro</tag>
+<status status="PASS" starttime="20221125 10:50:07.013" endtime="20221125 10:50:07.707"/>
+</test>
+<doc>Simulação de Proposta</doc>
+<status status="PASS" starttime="20221125 10:49:22.827" endtime="20221125 10:50:07.708"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">cadastro</stat>
+<stat pass="1" fail="0" skip="0">consultar_cadastro</stat>
+<stat pass="1" fail="0" skip="0">deletar_cadastro</stat>
+<stat pass="1" fail="0" skip="0">editar_cadastro</stat>
+</tag>
+<suite>
+<stat pass="4" fail="0" skip="0" id="s1" name="Poc">Poc</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

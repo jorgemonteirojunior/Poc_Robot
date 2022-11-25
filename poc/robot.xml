@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Poc" tests="4" errors="0" failures="0" skipped="0" time="44.881" timestamp="2022-11-25T10:49:22.827000">
+<testcase classname="Poc" name="CT01 - Cadastro" time="0.732">
+</testcase>
+<testcase classname="Poc" name="CT02 - Editar_cadastro" time="42.763">
+</testcase>
+<testcase classname="Poc" name="CT03 - consultar_cadastro" time="0.468">
+</testcase>
+<testcase classname="Poc" name="CT04 - deletar_cadastro" time="0.694">
+</testcase>
+<properties>
+<property name="Documentation" value="Simulação de Proposta"/>
+</properties>
+</testsuite>
